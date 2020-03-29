@@ -1,9 +1,12 @@
 package fun.xuefeng.controller;
 
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.security.Principal;
 import java.util.UUID;
 
 @RestController
@@ -14,9 +17,10 @@ public class DemoController {
         return new Message("Hello World");
     }
 
-    @GetMapping("/user")
-    public Principal user(Principal user) {
-        return user;
+    @RequestMapping(path = "/user", method = {RequestMethod.GET, RequestMethod.POST})
+    public Object user() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        return authentication.getPrincipal();
     }
 
 }
