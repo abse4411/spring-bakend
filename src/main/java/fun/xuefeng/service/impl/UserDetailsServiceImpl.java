@@ -26,6 +26,8 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         if (null != user) {
             List<Role> roles = roleMapper.getRolesByUserId(user.getId());
             user.setAuthorities(roles);
+        } else {
+            throw new UsernameNotFoundException(userName);
         }
 
         return user;
