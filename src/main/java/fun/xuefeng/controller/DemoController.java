@@ -2,19 +2,25 @@ package fun.xuefeng.controller;
 
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpSession;
+import java.util.Collections;
+import java.util.Map;
 import java.util.UUID;
 
 @RestController
 public class DemoController {
 
-    @GetMapping("/resource")
-    public Message home() {
-        return new Message("Hello World");
+    //    @GetMapping("/resource")
+//    public Message home() {
+//        return new Message("Hello World");
+//    }
+    @RequestMapping("/token")
+    public Map<String, String> token(HttpSession session) {
+        return Collections.singletonMap("token", session.getId());
     }
 
     @RequestMapping(path = "/user", method = {RequestMethod.GET, RequestMethod.POST})
